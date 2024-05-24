@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --color1: #333;
+  --color1: rgb(50, 230, 226);
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
