@@ -1,5 +1,7 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { useRoute,RouterLink } from 'vue-router'
+const route = useRoute()
+
 </script>
 
 <template>
