@@ -2,6 +2,7 @@
 import { useRoute,RouterLink } from 'vue-router'
 const route = useRoute()
 
+import WebcamInput from './components/WebCamInput.vue'
 </script>
 
 <template>
@@ -17,6 +18,7 @@ const route = useRoute()
       Flipbook
     </h1>
     <RouterView />
+    <WebcamInput />
   </main>
 </template>
 

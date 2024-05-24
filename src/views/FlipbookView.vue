@@ -11,7 +11,7 @@ console.log(pages)
   </flipbook>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .flipbook {
   // border: 1px solid black;
   width: 80vw;
