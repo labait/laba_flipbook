@@ -4,6 +4,10 @@ import { ref, onMounted } from 'vue'
 import p5 from 'p5';
 import ml5 from 'ml5'
 
+// import * as tf from '@tensorflow/tfjs';
+// import * as faceLandmarksDetection from '@tensorflow-models/face-landmarks-detection';
+// import mediapipeFacemesh from '@mediapipe/face_mesh';
+
 /* based on by https://editor.p5js.org/jeffThompson/sketches/acsbpNkef
 
 SKELETON TRACKING
@@ -54,6 +58,18 @@ const scalePoint = (pt) => {
   return p.createVector(x, y);
 }
 
+// load the Face Landmarks model – this can be super
+// slow so you might want to add a loading screen!
+async function loadFaceModel() {
+  console.log(faceLandmarksDetection.SupportedPackages)
+  model = await faceLandmarksDetection.load(
+    faceLandmarksDetection.SupportedPackages.mediapipeFacemesh,
+    
+    // optional: limit results to just one face
+    { maxFaces: 1 }
+  );
+}
+
 onMounted(() => {
   p = new p5((p) => {
     // p.setup = () => {
@@ -80,6 +96,12 @@ onMounted(() => {
       model.on('pose', function(predictions) {
         skeleton = predictions[0];
       });
+
+      // while(!tf.ready()) {
+      //   // this while-loop will just repeat until
+      //   // everything is ready for us
+      // }
+      // loadFaceModel();
     }
 
 
@@ -159,10 +181,15 @@ onMounted(() => {
 
   #cam {
     position: absolute;
-    right: 0;
     bottom: 0;
     background-color: #ccc;
     opacity: 0.9;
     pointer-events: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    #cam {
+      right: 0;
+    }
   }
 </style>

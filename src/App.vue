@@ -2,8 +2,6 @@
 import { useRouter, RouterLink } from 'vue-router'
 
 const router = useRouter();
-
-import WebcamInput from './components/WebCamInput.vue'
 router.push('/flipbook') // redirect to flipbook view
 
 </script>
@@ -14,14 +12,10 @@ router.push('/flipbook') // redirect to flipbook view
     <RouterLink to="/flipbook">Flipbook</RouterLink>
   </nav>
   <main class=" flex flex-col items-center">
-    <p>
-      <strong>Current route path:</strong> {{ $route.fullPath }}
-    </p>
     <h1 class="text-3xl font-bold mb-2">
       Flipbook
     </h1>
     <RouterView />
-    <WebcamInput />
   </main>
 </template>
 
