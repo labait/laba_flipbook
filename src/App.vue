@@ -8,6 +8,9 @@ import { RouterLink } from 'vue-router'
     <RouterLink to="/flipbook">Flipbook</RouterLink>
   </nav>
   <main class=" flex flex-col items-center">
+    <p>
+      <strong>Current route path:</strong> {{ $route.fullPath }}
+    </p>
     <h1 class="text-3xl font-bold mb-2">
       Flipbook
     </h1>
