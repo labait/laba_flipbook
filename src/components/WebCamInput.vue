@@ -71,6 +71,7 @@ async function loadFaceModel() {
 }
 
 onMounted(() => {
+  //return
   p = new p5((p) => {
     // p.setup = () => {
     //   p.createCanvas(400, 400);
@@ -87,13 +88,17 @@ onMounted(() => {
       video.hide();
 
       // load the PoseNet model
-      model = ml5.poseNet(video, { maxPoseDetections: 1 } );
+      //model = ml5.poseNet(video, { maxPoseDetections: 1 } );
+      model = ml5.poseNet(video, () => {
+        console.log('Model loaded!');
+      })
       
       // when it has a new pose (skeleton), this 
       // function will be run!
       // (basically we just grab the first prediction,
       // since we only want one skeleton)
       model.on('pose', function(predictions) {
+        //console.log(predictions);
         skeleton = predictions[0];
       });
 
@@ -174,21 +179,25 @@ onMounted(() => {
 
 
 <template>
-  <div id="cam" :style="{width: `${width}px`, height: `${height}px`}"></div>
+  <div class="camera-input">
+    <!-- <a href="chrome://settings/content/camera">browser camera settings</a> -->
+    <div id="cam" :style="{width: `${width}px`, height: `${height}px`}"></div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-
-  #cam {
+  .camera-input {
     position: absolute;
     bottom: 0;
-    background-color: #ccc;
-    opacity: 0.9;
-    pointer-events: none;
+    #cam {
+      opacity: 0.9;
+      pointer-events: none;
+    }
   }
 
+
   @media screen and (min-width: 768px) {
-    #cam {
+    .camera-input {
       right: 0;
     }
   }
