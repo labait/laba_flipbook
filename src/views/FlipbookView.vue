@@ -1,17 +1,38 @@
 <script setup>
+import {ref, onMounted} from 'vue'
+import {useGlobal} from '../global.js'
+import {useRoute, useRouter, RouterLink} from 'vue-router'
+const route = useRoute()
+
 import Flipbook from 'flipbook-vue'
 import WebcamInput from '../components/WebCamInput.vue'
 
-const pages = Array(10).fill().map((_, i) => `https://picsum.photos/500/800?v=${i}`)
-console.log(pages)
+const contents = ref([])
+const content = ref({})
+const pages = ref([])
+
+onMounted(async () => {
+  contents.value = await useGlobal().loadContents()
+  // get folder param from url
+  const folder = route.params.folder
+  content.value = contents.value.find(content => content.folder === folder)
+  console.log("content")
+  //pages.value = Array(10).fill().map((_, i) => `https://picsum.photos/500/800?v=${i}`)
+  pages.value = content.value.pages.map(page => `/${page.image}`)
+})
+
 </script>
 
 <template>
+  <h1 class="text-center text-3xl mb-4">{{ content.folder }}</h1>
   <flipbook 
-    class="flipbook" 
+    v-if="content.pages"
+    class="flipbook mb-4" 
     :pages="pages">
   </flipbook>
-  <WebcamInput />
+  <RouterLink class="title" :to="{name: 'home'}">back home</RouterLink>
+
+  <WebcamInput v-if="false"/>
 </template>
 
 <style lang="scss" scoped>
