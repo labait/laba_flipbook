@@ -6,7 +6,7 @@ const dir = './public/contents';
 
 /* urls to call 
 http://127.0.0.1:8888/api/contents?prefix=/
-http://127.0.0.1:8888/api/contents?prefix=https://labacorsoweb-flipbook.s3.amazonaws.com/
+http://127.0.0.1:8888/api/contents?prefix=https://contents.labadigitaldesign.it/laba_flipbook/
 */
 
 const handler = async (event) => {
