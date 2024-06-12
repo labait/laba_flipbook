@@ -2,7 +2,9 @@ import { ref, computed, reactive } from 'vue';
 import axios from 'axios';
 
 const loadContents = async () => {
-  const response = await axios.get('/api/contents');
+  // check brower url is localhost or not
+  const url = window.location.href.includes('localhost') ? '/api/contents' : import.meta.env.VITE_API_CONTENTS_URL
+  const response = await axios.get(url);
   return response.data;
 };
 
