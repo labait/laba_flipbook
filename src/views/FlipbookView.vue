@@ -1,18 +1,19 @@
 <script setup>
-import {ref, onMounted} from 'vue'
-import {useGlobal} from '../global.js'
+import {ref, onMounted, watch} from 'vue'
 import {useRoute, useRouter, RouterLink} from 'vue-router'
 const route = useRoute()
 
 import Flipbook from 'flipbook-vue'
-import WebcamInput from '../components/WebCamInput.vue'
 
 const contents = ref([])
 const content = ref({})
 const pages = ref([])
 
+import {useGlobal} from '../global.js'
+const global = useGlobal()
+
 onMounted(async () => {
-  contents.value = await useGlobal().loadContents()
+  contents.value = await global.loadContents()
   // get folder param from url
   const folder = route.params.folder
   content.value = contents.value.find(content => content.folder === folder)
@@ -32,7 +33,6 @@ onMounted(async () => {
   </flipbook>
   <RouterLink class="title" :to="{name: 'home'}">back home</RouterLink>
 
-  <WebcamInput v-if="false"/>
 </template>
 
 <style lang="scss" scoped>

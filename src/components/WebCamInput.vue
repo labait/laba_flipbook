@@ -1,5 +1,8 @@
 <script setup>
 
+import {useGlobal} from '../global.js'
+const global = useGlobal()
+
 import { ref, onMounted } from 'vue'
 import p5 from 'p5';
 import ml5 from 'ml5'
@@ -70,7 +73,14 @@ async function loadFaceModel() {
   );
 }
 
+let throttleCounter = 0;
+
+
+
 onMounted(() => {
+
+
+
   //return
   p = new p5((p) => {
     // p.setup = () => {
@@ -141,8 +151,9 @@ onMounted(() => {
         }
 
         // we can also get specific points!
-        let leftWrist =  skeleton.pose.leftWrist;
+        let leftWrist = skeleton.pose.leftWrist;
         let rightWrist = skeleton.pose.rightWrist;
+
 
         // only display if the confidence level is high enough
         if (rightWrist.confidence > 0.3 && leftWrist.confidence > 0.3) {
@@ -168,7 +179,36 @@ onMounted(() => {
           p.fill(0);
           p.noStroke();
           p.text('Angle: ' + p.nf(p.degrees(a), 0,2) + 'º\nDist: ' + p.nf(d, 0,2) + 'px', l.x,l.y);
+          if(p.nf(d, 0,2) < 100 && skeleton.pose.score > 0.5) {
+            global.triggerGesture('ok', skeleton.pose);
+          }
         }
+
+        // detect input
+        // if(!flag) console.log(skeleton.pose)
+        // flag = true;
+        const time = new Date().getTime();
+        if((throttleCounter % 20)  == 0) {
+          const pose = skeleton.pose;
+          const ratioThreshold = 0.3;
+          if(pose.score > 0.5) {
+            if(
+              pose.rightShoulder.x > pose.rightWrist.x 
+              && (pose.rightShoulder.x - pose.rightWrist.x) / pose.rightShoulder.x > ratioThreshold
+            ) global.triggerGesture('right', pose);
+            if(
+              pose.leftWrist.x > pose.leftShoulder.x 
+              && (pose.leftWrist.x - pose.leftShoulder.x) / pose.leftWrist.x > ratioThreshold
+            ) global.triggerGesture('left', pose);
+            if(
+              (
+                pose.rightElbow.y < pose.rightShoulder.y
+                && pose.leftElbow.y < pose.leftShoulder.y
+              )
+            ) global.triggerGesture('back', pose);
+          }
+        }
+        throttleCounter++;
       }
     }
 
@@ -190,9 +230,11 @@ onMounted(() => {
     position: absolute;
     bottom: 0;
     #cam {
+      transform: scale(-1, 1);
       opacity: 0.9;
       pointer-events: none;
     }
+    z-index: 1000;
   }
 
 
