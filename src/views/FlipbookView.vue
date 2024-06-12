@@ -31,14 +31,13 @@ watch(global.currentGesture, (newGesture, oldGesture) => {
 })
 
 onMounted(async () => {
-  
   contents.value = await global.loadContents()
   // get folder param from url
   const folder = route.params.folder
   content.value = contents.value.find(content => content.folder === folder)
-  console.log("content")
+  console.log(content.value)
   //pages.value = Array(10).fill().map((_, i) => `https://picsum.photos/500/800?v=${i}`)
-  pages.value = content.value.pages.map(page => `/${page.image}`)
+  pages.value = content.value.pages.map(page => `${page.image}`)
 })
 
 </script>
@@ -60,6 +59,6 @@ onMounted(async () => {
 .flipbook {
   // border: 1px solid black;
   width: 80vw;
-  height: 800px;
+  height: 80vh;
 }
 </style>
