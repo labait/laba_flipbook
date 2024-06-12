@@ -1,11 +1,17 @@
 <script setup>
 
+
+const gestureName = ref(null)
 import {useGlobal} from '../global.js'
 const global = useGlobal()
+watch(global.currentGesture, (newGesture, oldGesture) => {
+  gestureName.value = newGesture.name
+})
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import p5 from 'p5';
 import ml5 from 'ml5'
+
 
 // import * as tf from '@tensorflow/tfjs';
 // import * as faceLandmarksDetection from '@tensorflow-models/face-landmarks-detection';
@@ -220,6 +226,10 @@ onMounted(() => {
 
 
 <template>
+  <BIconArrowLeft v-if="gestureName == 'left'" class="icon"/>
+  <BIconArrowRight v-if="gestureName == 'right'" class="icon"/>
+  <BIconCheckLg v-if="gestureName == 'ok'" class="icon"/>
+  <BIconArrowCounterclockwise v-if="gestureName == 'back'" class="icon"/>
   <div class="camera-input">
     <!-- <a href="chrome://settings/content/camera">browser camera settings</a> -->
     <div id="cam" :style="{width: `${width}px`, height: `${height}px`}"></div>
@@ -227,6 +237,17 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+  .icon {
+    text-shadow: 10px 15px 10px rgba(0, 0, 0, .3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    color: rgba($color: white, $alpha: .7);
+    font-size: 20vw;
+    font-weight: 900;
+  }
   .camera-input {
     pointer-events: none;
     position: absolute;

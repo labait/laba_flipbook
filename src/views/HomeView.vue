@@ -69,6 +69,7 @@
   // border: 1px solid red;
   padding: 30px;
   padding-right: 60px;
+  margin-left: -15px;
   .swiper-slide {
     cursor: pointer;
     display: flex;

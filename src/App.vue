@@ -1,5 +1,6 @@
 <script setup>
 import  { ref,onMounted, watch } from 'vue'
+
 import WebcamInput from './components/WebCamInput.vue'
 import { useRouter, RouterLink } from 'vue-router'
 const router = useRouter();
@@ -7,6 +8,7 @@ const router = useRouter();
 
 import { useGlobal } from './global.js'
 const global = useGlobal()
+
 
 </script>
 
