@@ -1,14 +1,20 @@
 <script setup>
-  import {useRouter} from 'vue-router'
+  import {useRouter, RouterLink} from 'vue-router'
   const router = useRouter()
 
   import { ref, onMounted, watch } from 'vue';
 
-  import { Swiper, SwiperSlide } from 'swiper/vue';
   import PreloadImages from '../components/PreloadImages.vue'
   
-  import { RouterLink } from 'vue-router';
+  // Import Swiper Vue.js components
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  // Import Swiper styles
   import 'swiper/css';
+  import 'swiper/css/pagination';
+  import 'swiper/css/navigation';
+
+  // import required modules
+  import { Pagination, Navigation } from 'swiper/modules';
 
   import {useGlobal} from '../global.js'
   const global = useGlobal()
@@ -36,7 +42,7 @@
 
   const swiperInstance = ref()
   const onSwiper = (swiper) => {
-    console.log(swiper);
+    console.log("swiper");
     swiperInstance.value = swiper
   };
   const onSlideChange = () => {
@@ -55,10 +61,14 @@
   <h1 class="text-center text-3xl mb-4">pubblications</h1>
   <div class="swiper">
     <swiper
-      :slides-per-view="1"
-      :space-between="50"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
+      :slidesPerView="3"
+      :centeredSlides="true"
+      :spaceBetween="30"
+      :pagination="{
+        clickable: true,
+      }"
     >
       <swiper-slide v-for="content in contents">
         <div class="text-center text-3xl mb-4">{{ content.folder }}</div>
@@ -72,7 +82,7 @@
 
 <style lang="scss" scoped>
 .swiper {
-  width: 600px;
+  width: 100vw;
   // border: 1px solid red;
   padding: 30px;
   padding-right: 60px;
@@ -84,6 +94,10 @@
     img {
       border-radius: 5px;
       display: block;
+    }
+  }
+  .swiper-slide-active {
+    img{
       box-shadow: 10px 15px 10px rgba(0, 0, 0, .3);
     }
   }

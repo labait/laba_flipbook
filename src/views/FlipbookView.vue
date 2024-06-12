@@ -48,6 +48,8 @@ onMounted(async () => {
   <h1 class="text-center text-3xl mb-4">{{ content.folder }}</h1>
   <flipbook 
     ref="fb"
+
+    :startPage="2"
     v-if="content.pages"
     class="flipbook mb-4" 
     :pages="content.pages.map(page => page.image)"
