@@ -18,14 +18,14 @@ const handler = async (event) => {
         const content = {
           folder: file,
           name: file,
-          path: filePath, 
+          path: filePath.replace('public', ''),
           pdf: path.join(filePath, contentFiles.find(f => f.endsWith('.pdf'))),
           pages: pages.map(p => {
             const basename = path.basename(p).split(".")[0];
             const page_number = parseInt(basename.split('_').reverse()[0])
             return {
               name: basename,
-              image: path.join(filePath,p),
+              image: path.join(filePath,p).replace('public', ''),
               page_number: page_number,
             }
           }).sort((a, b) => a.page_number - b.page_number)
