@@ -49,7 +49,7 @@ const handler = async (event) => {
       // isBase64Encoded: true,
     }
   } catch (error) {
-    return { statusCode: 500, body: error.toString() }
+    return { statusCode: 500, body: error.stack }
   }
 }
 
