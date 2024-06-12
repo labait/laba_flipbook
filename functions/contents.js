@@ -3,8 +3,16 @@ const path = require('path');
 const dir = './public/contents';
 
 // Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
+
+/* urls to call 
+http://127.0.0.1:8888/api/contents?prefix=/
+http://127.0.0.1:8888/api/contents?prefix=https://labacorsoweb-flipbook.s3.amazonaws.com/
+*/
+
 const handler = async (event) => {
   try {
+    // check querystring
+    const prefix = event.queryStringParameters && event.queryStringParameters.prefix ? event.queryStringParameters.prefix : 'null';
     const contents = [];
     // read all subdirectoris in the contents directory
     const files = fs.readdirSync(dir);
@@ -18,14 +26,14 @@ const handler = async (event) => {
         const content = {
           folder: file,
           name: file,
-          path: filePath.replace('public', ''),
-          pdf: path.join(filePath, contentFiles.find(f => f.endsWith('.pdf'))),
+          path: prefix + path.join(filePath.replace('public/', '')),
+          pdf: prefix + path.join(filePath, contentFiles.find(f => f.endsWith('.pdf'))).replace('public/', ''),
           pages: pages.map(p => {
             const basename = path.basename(p).split(".")[0];
             const page_number = parseInt(basename.split('_').reverse()[0])
             return {
               name: basename,
-              image: path.join(filePath,p).replace('public', ''),
+              image: prefix + path.join(filePath, p).replace('public/', ''),
               page_number: page_number,
             }
           }).sort((a, b) => a.page_number - b.page_number)
