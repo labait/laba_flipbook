@@ -49,8 +49,9 @@ let model;     // PoseNet machine-learning model
 let skeleton;  // detected skeleton
 let firstSkeleton = true;
 
-const width = 640;
-const height = 480;
+const poinSize = 10;
+const width = 320;
+const height = 240;
 
 // note: this is a little different than the previous
 // versions of this function, since the position from
@@ -147,7 +148,7 @@ onMounted(() => {
           // and a position
 
           pt = scalePoint(pt.position);
-          p.circle(pt.x, pt.y, 20);
+          p.circle(pt.x, pt.y, poinSize);
         }
 
         // we can also get specific points!
@@ -178,8 +179,8 @@ onMounted(() => {
 
           p.fill(0);
           p.noStroke();
-          p.text('Angle: ' + p.nf(p.degrees(a), 0,2) + 'º\nDist: ' + p.nf(d, 0,2) + 'px', l.x,l.y);
-          if(p.nf(d, 0,2) < 100 && skeleton.pose.score > 0.5) {
+          //p.text('Angle: ' + p.nf(p.degrees(a), 0,2) + 'º\nDist: ' + p.nf(d, 0,2) + 'px', l.x,l.y);
+          if(p.nf(d, 0,2) < (width/8) && skeleton.pose.score > 0.5) {
             global.triggerGesture('ok', skeleton.pose);
           }
         }
@@ -227,12 +228,12 @@ onMounted(() => {
 
 <style lang="scss" scoped>
   .camera-input {
+    pointer-events: none;
     position: absolute;
     bottom: 0;
     #cam {
       transform: scale(-1, 1);
       opacity: 0.9;
-      pointer-events: none;
     }
     z-index: 1000;
   }
