@@ -1,16 +1,39 @@
 <script setup>
-  import { ref, onMounted } from 'vue';
+  import {useRouter} from 'vue-router'
+  const router = useRouter()
+  import { ref, onMounted, watch } from 'vue';
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import { RouterLink } from 'vue-router';
   import 'swiper/css';
 
-  import { useGlobal } from '../global.js'
+  import {useGlobal} from '../global.js'
   const global = useGlobal()
+  watch(global.currentGesture, (newGesture, oldGesture) => {
+    console.log('gesture', newGesture.name, "at", newGesture.timestamp)
+    switch (newGesture.name) {
+      case 'right':
+        swiperInstance.value.slideNext()
+        break;
+      case 'left':
+        swiperInstance.value.slidePrev()
+        break; 
+      case 'ok':
+        const index = swiperInstance.value.activeIndex
+        const content = contents.value[index]
+        router.push({name: 'detail', params: {folder: content.folder}})
+        break; 
+      default:
+        break;
+    }
+  })
+
 
   const contents = ref([]);
 
+  const swiperInstance = ref()
   const onSwiper = (swiper) => {
     console.log(swiper);
+    swiperInstance.value = swiper
   };
   const onSlideChange = () => {
     console.log('slide change');

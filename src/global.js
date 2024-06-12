@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import axios from 'axios';
 
 const loadContents = async () => {
@@ -6,18 +6,21 @@ const loadContents = async () => {
   return response.data;
 };
 
-const triggeredGestures = []
+const triggeredGestures = reactive([])
 const gestureNone = {name: 'none', timestamp: 0}
 let gestureResetTimeout = null;
-const currentGesture = () => {
+// const currentGesture = () => {
+//   return triggeredGestures[triggeredGestures.length - 1] || gestureNone;
+// }
+const currentGesture = computed(() => {
   return triggeredGestures[triggeredGestures.length - 1] || gestureNone;
-}
+})
 const triggerGesture = (name) => {
   clearTimeout(gestureResetTimeout)
-  if(currentGesture().name != name) {
+  if(currentGesture.value.name != name) {
     const timestamp = new Date().getTime()
     triggeredGestures.push({name, timestamp})
-    console.log('gesture', name, "at", (new Date(timestamp)).toLocaleTimeString())
+    //console.log('gesture', name, "at", (new Date(timestamp)).toLocaleTimeString())
   }
   gestureResetTimeout = setTimeout(() => {
     triggeredGestures.push(gestureNone)
