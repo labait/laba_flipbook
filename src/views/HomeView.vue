@@ -1,8 +1,12 @@
 <script setup>
   import {useRouter} from 'vue-router'
   const router = useRouter()
+
   import { ref, onMounted, watch } from 'vue';
+
   import { Swiper, SwiperSlide } from 'swiper/vue';
+  import PreloadImages from '../components/PreloadImages.vue'
+  
   import { RouterLink } from 'vue-router';
   import 'swiper/css';
 
@@ -45,6 +49,9 @@
 </script>
 
 <template>
+  <pre v-if="false">{{ contents.map( content => content.pages[0].image) }}</pre>
+  <PreloadImages :images="contents.map( content => content.pages[0].image) " />
+
   <h1 class="text-center text-3xl mb-4">pubblications</h1>
   <div class="swiper">
     <swiper
