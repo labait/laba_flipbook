@@ -5,12 +5,6 @@ import App from './App.vue'
 
 import router from './router'
 
-import {
-  BIconBatteryFull,
-  BIconArrow90degDown,
-  BIconBookmark,
-} from "bootstrap-icons-vue";
-
 createApp(App)
 .use(BootstrapIconsPlugin)
 .use(router)
