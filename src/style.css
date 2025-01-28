@@ -24,7 +24,7 @@ a:hover {
   color: var(--color1);
 }
 
-body {
+main {
   margin: 0;
   display: flex;
   place-items: center;

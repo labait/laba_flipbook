@@ -49,8 +49,13 @@
     console.log('slide change');
   };
   
+  
   onMounted(async () => {
     contents.value = await global.loadContents();
+    if(contents.value.length == 1){
+      router.push({name: 'detail', params: {folder: contents.value[0].folder}})
+      return
+    }
   });
 </script>
 

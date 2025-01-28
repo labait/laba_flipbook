@@ -1,5 +1,4 @@
-import { createWebHistory, createRouter } from 'vue-router'
-
+import { createWebHistory, createMemoryHistory, createRouter } from 'vue-router'
 import HomeView from './views/HomeView.vue'
 import FlipbookView from './views/FlipbookView.vue'
 
@@ -8,8 +7,12 @@ const routes = [
   { path: '/detail/:folder', component: FlipbookView, name: "detail", },
 ]
 
+import { useGlobal } from './global.js'
+const global = useGlobal()  
+console.log('isEmbed', global.dataAttributes.value.isEmbed)
+
 const router = createRouter({
-  history: createWebHistory(),
+  history: (global.dataAttributes.value.isEmbed == 'true' ? createMemoryHistory() : createWebHistory()),
   routes,
 })
 

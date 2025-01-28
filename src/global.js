@@ -1,13 +1,10 @@
 import { ref, computed, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 import axios from 'axios';
+import { data } from 'autoprefixer';
 
-const loadContents = async () => {
-  // check brower url is localhost or not
-  const url = window.location.href.includes('localhost') ? '/api/contents' : import.meta.env.VITE_API_CONTENTS_URL
-  const response = await axios.get(url);
-  return response.data;
-};
-
+const dataAttributes = ref(document.getElementById('app').dataset);
 const triggeredGestures = reactive([])
 const gestureNone = {name: 'none', timestamp: 0}
 let gestureResetTimeout = null;
@@ -31,8 +28,16 @@ const triggerGesture = (name) => {
 }
 
 
+const loadContents = async () => {
+  const url = dataAttributes.value.contentsUrl || import.meta.env.VITE_API_CONTENTS_URL
+  const response = await axios.get(url);
+  //console.log('loadContents', url, "data", response.data)
+  return response.data;
+};
+
 export function useGlobal() {
   return {
+    dataAttributes,
     loadContents,
     triggerGesture,
     currentGesture,

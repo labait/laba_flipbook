@@ -30,8 +30,13 @@ watch(global.currentGesture, (newGesture, oldGesture) => {
   }
 })
 
+const homeUrl = () => {
+  return global.dataAttributes.value.homeUrl || router.resolve({ name: 'home' }).href
+}
+
 onMounted(async () => {
   contents.value = await global.loadContents()
+  console.log('contents', contents.value)
   // get folder param from url
   const folder = route.params.folder
   content.value = contents.value.find(content => content.folder === folder)
@@ -49,13 +54,13 @@ onMounted(async () => {
   <flipbook 
     ref="fb"
 
-    :startPage="2"
+    :startPage="1"
     v-if="content.pages"
     class="flipbook mb-4" 
     :pages="content.pages.map(page => page.image)"
   >
   </flipbook>
-  <RouterLink class="title" :to="{name: 'home'}">back home</RouterLink>
+  <RouterLink class="title" :to="homeUrl()">back home</RouterLink>
 
 </template>
 
