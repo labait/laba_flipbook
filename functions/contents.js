@@ -12,7 +12,7 @@ http://127.0.0.1:8888/api/contents?prefix=https://contents.labadigitaldesign.it/
 const handler = async (event) => {
   try {
     // check querystring
-    const prefix = event.queryStringParameters && event.queryStringParameters.prefix ? event.queryStringParameters.prefix : 'null';
+    const prefix = event.queryStringParameters && event.queryStringParameters.prefix ? event.queryStringParameters.prefix : '/';
     const contents = [];
     // read all subdirectoris in the contents directory
     const files = fs.readdirSync(dir);
