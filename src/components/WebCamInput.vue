@@ -85,6 +85,8 @@ let throttleCounter = 0;
 
 
 onMounted(() => {
+  // return if querystring contains ?no-cam
+  if(window.location.search.includes('?nocam')) return
 
 
 
