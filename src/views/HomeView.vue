@@ -63,7 +63,6 @@
   <pre v-if="false">{{ contents.map( content => content.pages[0].image) }}</pre>
   <PreloadImages :images="contents.map( content => content.pages[0].image) " />
 
-  <h1 class="text-center text-3xl m-6">Magazine Archive</h1>
   <div class="swiper">
     <swiper
       @swiper="onSwiper"
