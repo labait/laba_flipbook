@@ -65,7 +65,9 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-
+.title{
+  font-weight:600;
+  }
 .flipbook {
   // border: 1px solid black;
   width: 80vw;

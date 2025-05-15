@@ -15,7 +15,7 @@ import Navbar from './components/Navbar.vue'
 
 <template>
   <Navbar />
-  <main class=" flex flex-col items-center">
+  <main class="flex flex-col items-center bg-no-repeat bg-bottom" style="background-image: url('/img/croppata.png');">
     <RouterView />
   </main>
   <WebcamInput v-if="true"/>
@@ -23,10 +23,6 @@ import Navbar from './components/Navbar.vue'
 </template>
 
 <style scoped>
-main {
-
-}
-
 nav {
   display: flex;
   justify-content: center;

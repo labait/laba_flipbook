@@ -3,23 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --color1: rgb(50, 230, 226);
+  --color1: #ed7137;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
-
+  color: white;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.title {
-  font-weight: 500;
-  font-size: 2em;
-  color: var(--color1);
-  text-decoration: inherit;
-}
 a:hover {
   color: var(--color1);
 }
@@ -29,14 +23,15 @@ main {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height:80vh;
+  background:black;
 }
 
 #app {
   display: flex;
+  height:100vh;
   justify-content: center;
   align-items: center;
-  width: 100vw;
   flex-direction: column;
 }
 
