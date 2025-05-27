@@ -99,9 +99,12 @@
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    // border: 1px solid red;
+    align-items: center;
     img {
       border-radius: 5px;
       display: block;
+      width:25vw;
     }
   }
   .swiper-slide-active {
