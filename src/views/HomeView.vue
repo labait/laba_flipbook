@@ -42,7 +42,6 @@
 
   const swiperInstance = ref()
   const onSwiper = (swiper) => {
-    console.log("swiper");
     swiperInstance.value = swiper
   };
   const onSlideChange = () => {
