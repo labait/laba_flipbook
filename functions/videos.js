@@ -19,10 +19,10 @@ export default async (request) => {
 
     const videos = files.map(file => ({
       file,
-      path: `${prefixBase}/data/videos/${file}`,
+      path: `${prefixBase}/contents/${subdir}/${file}`,
     }));
 
-    return Response.json({ videos });
+    return Response.json( videos );
   } catch (error) {
     return new Response(error.stack, { status: 500 });
   }

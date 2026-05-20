@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import PreloadImages from '../PreloadImages.vue';
-import { useGlobal } from '../../global.js';
+import { useGlobal } from '../global.js';
 
 const props = defineProps({
   contents: {
