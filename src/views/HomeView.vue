@@ -51,12 +51,18 @@
   
   
   onMounted(async () => {
-    contents.value = await global.loadContents();
-    contents.value = contents.value.filter(content => content.pages.length > 0)
-    console.log("contents", contents.value)
-    if(contents.value.length == 1){
-      router.push({name: 'detail', params: {folder: contents.value[0].folder}})
-      return
+    try {
+      const data = await global.loadContents();
+      if (!Array.isArray(data)) {
+        console.error('loadContents: expected an array, got', data);
+        return;
+      }
+      contents.value = data.filter(content => content.pages?.length > 0);
+      if (contents.value.length === 1) {
+        router.push({name: 'detail', params: {folder: contents.value[0].folder}});
+      }
+    } catch (error) {
+      console.error('Failed to load contents:', error);
     }
   });
 </script>
@@ -64,7 +70,7 @@
 <template>
     
   <pre v-if="false">{{ contents.map( content => content.pages[0].image) }}</pre>
-  <PreloadImages :images="contents.map( content => content.pages[0].image) " />
+  <PreloadImages v-if="contents.length > 0" :images="contents.map( content => content.pages[0].image) " />
 
   <div class="swiper">
     <swiper

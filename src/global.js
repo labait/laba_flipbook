@@ -1,8 +1,5 @@
 import { ref, computed, reactive } from 'vue';
-import { useRouter } from 'vue-router';
-const router = useRouter();
 import axios from 'axios';
-import { data } from 'autoprefixer';
 
 const dataAttributes = ref(document.getElementById('app').dataset);
 const triggeredGestures = reactive([])
