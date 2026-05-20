@@ -28,7 +28,7 @@ const triggerGesture = (name) => {
 const loadContents = async () => {
   const url = import.meta.env.VITE_CONTENTS_URL || dataAttributes.value.contentsUrl
   const response = await axios.get(url);
-  //console.log('loadContents', url, "data", response.data)
+  console.log('loadContents', url, "data", response.data)
   return response.data;
 };
 
