@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import process from 'process';
 
 // urls /api/videos?subdir=videos-synapses2026-05&prefix=/
 
@@ -10,8 +11,7 @@ export default async (request) => {
     const url = new URL(request.url);
     const subdir = url.searchParams.get('subdir');
     const dir = `./public/contents/${subdir}`;
-    const prefix = url.searchParams.get('prefix') ?? '/';
-    const prefixBase = prefix.endsWith('/') ? prefix.slice(0, -1) : prefix;
+    const url_prefix = process.env.VITE_CONTENTS_URL_PREFIX;
 
     const files = fs.readdirSync(dir)
       .filter(file => VIDEO_EXTENSIONS.has(path.extname(file).toLowerCase()))
@@ -19,7 +19,7 @@ export default async (request) => {
 
     const videos = files.map(file => ({
       file,
-      path: `${prefixBase}/contents/${subdir}/${file}`,
+      path: `${url_prefix}contents/${subdir}/${file}`,
     }));
 
     return Response.json( videos );
