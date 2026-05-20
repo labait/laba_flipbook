@@ -1,10 +1,13 @@
 <script setup>
 import { ref, watch, nextTick } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Keyboard, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { useGlobal } from '../global.js';
+
+const swiperModules = [Keyboard, Pagination];
 
 const props = defineProps({
   videos: {
@@ -166,12 +169,17 @@ watch(global.currentGesture, (newGesture) => {
     <swiper
       v-if="videos.length"
       class="swiper-videos__carousel"
+      :modules="swiperModules"
       @swiper="onSwiper"
       @slideChangeTransitionEnd="onSlideChangeTransitionEnd"
       :slidesPerView="1"
       :centeredSlides="true"
       :loop="true"
       :spaceBetween="0"
+      :keyboard="{
+        enabled: true,
+        onlyInViewport: true,
+      }"
       :pagination="{
         clickable: true,
       }"

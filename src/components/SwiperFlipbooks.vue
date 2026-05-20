@@ -2,12 +2,15 @@
 import { ref, watch } from 'vue';
 import { useRouter, RouterLink } from 'vue-router';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Keyboard, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import PreloadImages from '../PreloadImages.vue';
 import { useGlobal } from '../global.js';
+
+const swiperModules = [Keyboard, Pagination];
 
 const props = defineProps({
   contents: {
@@ -63,11 +66,16 @@ watch(global.currentGesture, (newGesture) => {
 
   <div class="swiper">
     <swiper
+      :modules="swiperModules"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
       :slidesPerView="3"
       :centeredSlides="true"
       :spaceBetween="30"
+      :keyboard="{
+        enabled: true,
+        onlyInViewport: true,
+      }"
       :pagination="{
         clickable: true,
       }"
