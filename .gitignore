@@ -27,3 +27,6 @@ dist-ssr
 .netlify
 
 public/contents
+
+deno.lock
+.env

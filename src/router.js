@@ -9,8 +9,6 @@ const routes = [
 
 import { useGlobal } from './global.js'
 const global = useGlobal()  
-console.log('isEmbed', global.dataAttributes.value.isEmbed)
-
 const router = createRouter({
   history: (global.dataAttributes.value.isEmbed == 'true' ? createMemoryHistory() : createWebHistory()),
   routes,

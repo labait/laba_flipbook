@@ -1,20 +1,15 @@
-const fs = require('fs');
-const path = require('path');
-const dir = './public/contents';
+import fs from 'fs';
+import path from 'path';
 
-// Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
+// urls /api/flipbooks?subdir=flipbooks-synapses2025&prefix=/
 
-/* urls to call 
-http://127.0.0.1:8888/api/contents?prefix=/
-http://127.0.0.1:8888/api/contents?prefix=https://contents.labadigitaldesign.it/laba_flipbook/
-*/
-
-const handler = async (event) => {
+export default async (request) => {
   try {
-    // check querystring
-    const prefix = event.queryStringParameters && event.queryStringParameters.prefix ? event.queryStringParameters.prefix : '/';
+    const url = new URL(request.url);
+    const subdir = url.searchParams.get('subdir');
+    const dir = `./public/contents/${subdir}`;
+    const prefix = url.searchParams.get('prefix') ?? '/';
     const contents = [];
-    // read all subdirectoris in the contents directory
     const files = fs.readdirSync(dir);
     files.forEach(file => {
       const filePath = path.join(dir, file);
@@ -41,16 +36,8 @@ const handler = async (event) => {
         contents.push({pages_count: content.pages.length, ...content, });
       }
     })
-    return {
-      statusCode: 200,
-      body: JSON.stringify(contents),
-      // // more keys you can return:
-      // headers: { "headerName": "headerValue", ... },
-      // isBase64Encoded: true,
-    }
+    return Response.json(contents);
   } catch (error) {
-    return { statusCode: 500, body: error.stack }
+    return new Response(error.stack, { status: 500 });
   }
 }
-
-module.exports = { handler }

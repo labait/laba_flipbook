@@ -259,6 +259,7 @@ onMounted(() => {
       opacity: 0.9;
     }
     z-index: 1000;
+    overflow: hidden;
   }
 
 
