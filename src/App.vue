@@ -9,25 +9,20 @@ const router = useRouter();
 import { useGlobal } from './global.js'
 const global = useGlobal()
 
+import Navbar from './components/Navbar.vue'
 
 </script>
 
 <template>
-  <nav v-if="false" class="mb-2">
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/flipbook">Flipbook</RouterLink>
-  </nav>
-  <main class=" flex flex-col items-center">
+  <Navbar />
+  <main class="flex flex-col items-center bg-no-repeat bg-bottom" style="background-image: url('/img/croppata.png');">
     <RouterView />
   </main>
   <WebcamInput v-if="true"/>
+
 </template>
 
 <style scoped>
-main {
-
-}
-
 nav {
   display: flex;
   justify-content: center;
