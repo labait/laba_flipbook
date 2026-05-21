@@ -185,7 +185,7 @@ watch(global.currentGesture, (newGesture) => {
       }"
     >
       <swiper-slide v-for="video in videos" :key="video.file">
-        <div class="slide-title">{{ video.file }}</div>
+        <!-- <div class="slide-title">{{ video.file }}</div> -->
         <video
           class="video-player"
           :src="video.path"
@@ -217,8 +217,8 @@ watch(global.currentGesture, (newGesture) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.82);
-    backdrop-filter: blur(6px);
+    // background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(10px);
   }
 
   .start-button {
@@ -237,6 +237,7 @@ watch(global.currentGesture, (newGesture) => {
     &:hover {
       transform: scale(1.05);
       background: #fff;
+      border: none;
       color: var(--color1);
       box-shadow: 0 0 55px rgba(237, 113, 55, 0.65);
     }
@@ -257,15 +258,15 @@ watch(global.currentGesture, (newGesture) => {
     align-items: center;
     justify-content: center;
 
-    .slide-title {
-      margin-bottom: 0.75rem;
-      font-size: 1.75rem;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: min(90vw, 1200px);
-    }
+    // .slide-title {
+    //   margin-bottom: 0.75rem;
+    //   font-size: 1.75rem;
+    //   text-align: center;
+    //   white-space: nowrap;
+    //   overflow: hidden;
+    //   text-overflow: ellipsis;
+    //   max-width: min(90vw, 1200px);
+    // }
 
     .video-player {
       display: block;

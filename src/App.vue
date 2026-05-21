@@ -15,7 +15,7 @@ import Navbar from './components/Navbar.vue'
 
 <template>
   <Navbar />
-  <main class="flex flex-col items-center bg-no-repeat bg-bottom" style="background-image: url('/img/croppata.png');">
+  <main class="flex flex-col items-center bg-no-repeat bg-bottom">
     <RouterView />
   </main>
   <WebcamInput v-if="true"/>
