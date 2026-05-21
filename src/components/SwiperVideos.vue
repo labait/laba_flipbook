@@ -252,6 +252,16 @@ watch(global.currentGesture, (newGesture) => {
     height: 100%;
   }
 
+  :deep(.swiper-pagination-bullet) {
+  background-color: #ffffff;
+  opacity: 0.45;
+  }
+
+  :deep(.swiper-pagination-bullet-active) {
+    background-color: var(--color1);
+    opacity: 1;
+  }
+
   :deep(.swiper-slide) {
     display: flex;
     flex-direction: column;
